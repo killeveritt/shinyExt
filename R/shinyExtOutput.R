@@ -20,6 +20,9 @@ renderDataTable <- function(expr, tableID, ..., env = parent.frame(), quoted = F
     if (is.null(data)) 
       return("")
 
+    data[] = lapply(data, function(.col) { if (is.numeric(.col)) return(round(.col, 4)) else return(.col) } )
+    data = format(data, big.mark=',', digits=4, scientific=FALSE)
+
     return(paste(generateHTMLTable(data, tableID), getDataTableJSScriptlet(tableID)))
   }  
 }
