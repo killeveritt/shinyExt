@@ -135,6 +135,8 @@ datePicker <- function(inputId, label, default=Sys.Date(),
                               package='shinyExt'))
   tagList(
     singleton(tags$head(tags$script(src = 'shinyExt/js/inputExt.js'),
+                        tags$script(src = 'shinyExt/js/date.js'),
+                        tags$script(src = 'shinyExt/js/daterangepicker.js'),
                         tags$script(src = 'shinyExt/js/bootstrap-datepicker.js'),
                         tags$link(rel = "stylesheet", type = "text/css",
                                   href = 'shinyExt/css/datepicker.css'),
