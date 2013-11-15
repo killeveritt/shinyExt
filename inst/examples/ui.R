@@ -1,58 +1,24 @@
 library(shiny)
-library(shinyExt)
-library(ggplot2)
+library(ggplot2)  # for the diamonds dataset
 
-# Define UI for dataset viewer application
 shinyUI(pageWithSidebar(
-  
-  # Application title
-  headerPanel("Reactivity - Laboratory"),
-  
-  # Sidebar with controls to provide a caption, select a dataset, and 
-  # specify the number of observations to view. Note that changes made
-  # to the caption in the textInput control are updated in the output
-  # area immediately as you type
+  headerPanel('Examples of DataTables'),
   sidebarPanel(
-    tags$head(getDataTableHeaderTags()),
-    actionButton("btn_newSample","Generate new sample"),
-    textInput("caption", "Caption:", "Data Summary"),
-    passwordInput("passwd", "Password:"),
-    HTML("<label for='bpassword'>Password 3:</label>",
-         "<input type='password' name='bpassword'><br />"),
-    
-    select2Input("dataset", "Choose a dataset:", 
-                choices = c("rock", "pressure", "cars", "diamonds")),
-    
-    numericInput("obs", "Number of observations to view:", 10),
-    
-    daterangePicker("input_period", "Select a range period:", defaultValue=paste(format(Sys.Date(), "%m/%d/%Y"), '-', format(Sys.Date(), "%m/%d/%Y"))),
-    
-    datePicker("in_date", "Select a date:", default="01-01-2013",
-               format="dd/mm/yyyy")
-    
-  ),
-  
-  
-  # Show the caption, a summary of the dataset and an HTML table with
-  # the requested number of observations
+    select2Input(inputId='showvars2', label='Diamonds Column', choices=names(diamonds), selected=names(diamonds), multiple=TRUE),
+    helpText('For the diamonds data, we can select variables to show in the table;
+             for the mtcars example, we use bSortClasses = TRUE so that sorted
+             columns are colored since they have special CSS classes attached;
+             for the iris data, we customize the length menu so we can display 5
+             rows per page.')
+    ),
   mainPanel(
     tabsetPanel(
-      tabPanel("Plot", plotOutput("plot"),
-               h4('Values Selected'),
-               textOutput('inputValueSelected')),
-      tabPanel("Summary", 
-               h3(textOutput("caption")), 
-               br(),
-               verbatimTextOutput("summary")
-      ),
-      tabPanel("Table", 
-               downloadLink('downloadData'),
-               tableOutput("view")               
-      ),
-      tabPanel("Secret", 
-               textOutput("pwd"),
-               br(),
-               textOutput("filter_date2"))
+      tabPanel('diamonds',
+               dataTableOutput("mytable1")),
+      tabPanel('mtcars',
+               dataTableOutput("mytable2")),
+      tabPanel('iris',
+               dataTableOutput("mytable3"))
     )
   )
 ))

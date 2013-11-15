@@ -21,4 +21,3 @@ URL: https://github.com/killeveritt/shinyExtExample
 BugReports: https://github.com/killeveritt/shinyExtExample/issues
 Collate:
     'shinyExtInput.R'
-    'shinyExtOutput.R'

@@ -15,8 +15,7 @@
 select2Input <- function(inputId, label, choices, inputWidth = 'resolve', selected = NULL, multiple = FALSE) {
   addResourcePath(
     prefix='shinyExt',
-    directoryPath =  system.file('inputExt',
-                                 package='shinyExt')
+    directoryPath =  system.file('inputExt', package='shinyExt')
   )
   tagList(
     singleton(
